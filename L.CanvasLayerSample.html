@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Draw points with  L.CanvasLayer.js</title>
+    <meta charset="utf-8">
+
+    <style>
+          html, body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background: rgb(14, 21, 30);
+            height: 100%;
+            font-family: Verdana, Geneva, Lucida, Arial, Helvetica,Lucida Console, Monaco, monospace;
+            font-size: 100%;
+          
+        }
+        #map {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: #333;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="map"></div>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+    <script src="L.CanvasLayer.js"></script>
+    <script src="http://www.sumbera.com/gist/data.js" charset="utf-8"></script>
+
+
+    <script>
+        var points = data; // data loaded from data.js
+        var leafletMap = L.map('map').setView([50.00, 14.44], 9);
+
+        L.tileLayer("http://{s}.sm.mapstack.stamen.com/(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/{z}/{x}/{y}.png")
+            .addTo(leafletMap);
+
+
+        L.canvasLayer()
+            .delegate(this) // -- if we do not inherit from L.CanvasLayer we can setup a delegate to receive events from L.CanvasLayer
+            .addTo(leafletMap);
+      
+        function onDrawLayer(info) {
+            var ctx = info.canvas.getContext('2d');
+            ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
+            ctx.fillStyle = "rgba(255,116,0, 0.2)";
+            for (var i = 0; i < data.length; i++) {
+                var d = data[i];
+                if (info.bounds.contains([d[0], d[1]])) {
+                    dot = info.layer._map.latLngToContainerPoint([d[0], d[1]]);
+                    ctx.beginPath();
+                    ctx.arc(dot.x, dot.y, 3, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.closePath();
+                }
+            }
+        };
+    </script>
+</body>
+</html>
