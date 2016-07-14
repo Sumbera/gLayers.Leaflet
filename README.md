@@ -3,7 +3,7 @@ generic  map layers for leaflet 0.7 and 1.0-rc
 
 L.CanvasLayer API:
 
-API:
+##API:
 
 |methods       | description            | 
 | ------------- |:-------------| 
@@ -43,3 +43,8 @@ note :  events will be called only if presented on the 'subclass'
           var myLayer = new myCustomCanvasDraw();
           myLayer.addTo(leafletMap);
  ```   
+
+Other useful full view  Leaflet Canvas sources here:
+- [leaflet.heat](https://github.com/Leaflet/Leaflet.heat)
+- [Full Canvas] (https://github.com/cyrilcherian/Leaflet-Fullcanvas)
+- [CartoDb Leaflet.Canvas] (https://github.com/CartoDB/Leaflet.CanvasLayer)
