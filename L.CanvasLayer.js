@@ -1,9 +1,9 @@
 
 /*
   Generic  Canvas Layer for leaflet 0.7 and 1.0-rc, 
-  copyright Stanislav Sumbera,  2016 , sumbera.com
+  copyright Stanislav Sumbera,  2016 , sumbera.com , license MIT
   originally created and motivated by L.CanvasOverlay  available here: https://gist.github.com/Sumbera/11114288  
-
+  
 */
 
 L.CanvasLayer = L.Class.extend({
@@ -12,7 +12,13 @@ L.CanvasLayer = L.Class.extend({
         this._map    = null;
         this._canvas = null;
         this._frame  = null;
+        this._delegate = null;
         L.setOptions(this, options);
+    },
+
+    delegate :function(del){
+        this._delegate = del;
+        return this;
     },
 
     needRedraw: function () {
@@ -65,13 +71,16 @@ L.CanvasLayer = L.Class.extend({
 
         map.on(this.getEvents(),this);
         
-
-        this.onLayerDidMount && this.onLayerDidMount(); // -- callback
+        var del = this._delegate || this;
+        del.onLayerDidMount && del.onLayerDidMount(); // -- callback
+        this.needRedraw();
     },
     
     //-------------------------------------------------------------
     onRemove: function (map) {
-        this.onLayerWillUnmount && this.onLayerWillUnmount(); // -- callback
+        var del = this._delegate || this;
+        del.onLayerWillUnmount && del.onLayerWillUnmount(); // -- callback
+   
 
         map.getPanes().overlayPane.removeChild(this._canvas);
  
@@ -103,8 +112,11 @@ L.CanvasLayer = L.Class.extend({
 
         var center = this.LatLonToMercator(this._map.getCenter());
         var corner = this.LatLonToMercator(this._map.containerPointToLatLng(this._map.getSize()));
-                        
-        this.onDrawLayer && this.onDrawLayer({  canvas: this._canvas,
+   
+        var del = this._delegate || this;
+        del.onDrawLayer && del.onDrawLayer( {
+                                                layer : this,
+                                                canvas: this._canvas,
                                                 bounds: bounds,
                                                 size: size,
                                                 zoom: zoom,
