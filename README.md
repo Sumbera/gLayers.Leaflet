@@ -1,4 +1,4 @@
-# gLayers
+# gLayers.Leaflet
 generic  map layers for leaflet 0.7 and 1.0-rc, moving from original GIST here https://gist.github.com/Sumbera/11114288 to this repo.
 
 L.CanvasLayer  - full screen generic canvas layer for leaflet
