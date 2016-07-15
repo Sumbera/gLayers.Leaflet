@@ -1,0 +1,29 @@
+{
+	"name": "glayers.leaflet",
+	"description": "Generic map layers for Leaflet 1.0.0-rc.1",
+	"keywords": [
+		"leaflet",
+		"plugin",
+		"canvas",
+		"layer"
+	],
+	"homepage": "https://github.com/sumbera/glayers.leaflet",
+	"authors": [
+		"Stanislav Sumbera"
+	],
+	"version": "1.0.0",
+	"license": "MIT",
+	"dependencies": {
+		"leaflet": ">= 1.0.0-rc.1"
+	},
+	"main": [
+		"L.CanvasLayer.js"
+	],
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	]
+}
