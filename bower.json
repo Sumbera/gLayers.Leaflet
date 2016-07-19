@@ -1,6 +1,6 @@
 {
 	"name": "glayers.leaflet",
-	"description": "Generic map layers for Leaflet 1.0.0-rc.1",
+	"description": "Generic map layers for Leaflet 1.0.0-rc.2",
 	"keywords": [
 		"leaflet",
 		"plugin",
@@ -11,10 +11,10 @@
 	"authors": [
 		"Stanislav Sumbera"
 	],
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"license": "MIT",
 	"dependencies": {
-		"leaflet": ">= 1.0.0-rc.1"
+		"leaflet": ">= 1.0.0-rc.2"
 	},
 	"main": [
 		"L.CanvasLayer.js"
