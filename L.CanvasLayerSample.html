@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Draw points with  L.CanvasLayer.js</title>
@@ -28,6 +28,10 @@
     <div id="map"></div>
     <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
     <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
+    
+    <!--<link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css" />
+    <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>-->
+
     <script src="L.CanvasLayer.js"></script>
     <script src="http://www.sumbera.com/gist/data.js" charset="utf-8"></script>
 
@@ -35,8 +39,8 @@
     <script>
         var points = data; // data loaded from data.js
         var leafletMap = L.map('map').setView([50.00, 14.44], 9);
-
-        L.tileLayer("http://{s}.sm.mapstack.stamen.com/(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/{z}/{x}/{y}.png")
+        // -- pls change your key to keep this working for others.
+        L.tileLayer("https://{s}.tiles.mapbox.com/v4/mapbox.dark/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoiZ2xlYWZsZXQiLCJhIjoiY2lxdWxoODl0MDA0M2h4bTNlZ2I1Z3gycyJ9.vrEWCC2nwsGfAYKZ7c4HZA")
             .addTo(leafletMap);
 
 

@@ -6,7 +6,20 @@
   
 */
 
-L.CanvasLayer = L.Layer.extend({
+// -- L.DomUtil.setTransform from leaflet 1.0.0 to work on 0.0.7
+//------------------------------------------------------------------------------
+L.DomUtil.setTransform = L.DomUtil.setTransform || function (el, offset, scale) {
+    var pos = offset || new L.Point(0, 0);
+
+    el.style[L.DomUtil.TRANSFORM] =
+        (L.Browser.ie3d ?
+            'translate(' + pos.x + 'px,' + pos.y + 'px)' :
+            'translate3d(' + pos.x + 'px,' + pos.y + 'px,0)') +
+        (scale ? ' scale(' + scale + ')' : '');
+};
+
+// -- support for both  0.0.7 and 1.0.0 rc2 leaflet
+L.CanvasLayer = (L.Layer ? L.Layer : L.Class).extend({ 
     // -- initialized is called on prototype 
     initialize: function (options) {
         this._map    = null;
@@ -123,13 +136,28 @@ L.CanvasLayer = L.Layer.extend({
                                             });
         this._frame = null;
     },
+    // -- L.DomUtil.setTransform from leaflet 1.0.0 to work on 0.0.7
+    //------------------------------------------------------------------------------
+    _setTransform: function (el, offset, scale) {
+        var pos = offset || new L.Point(0, 0);
+
+        el.style[L.DomUtil.TRANSFORM] =
+			(L.Browser.ie3d ?
+				'translate(' + pos.x + 'px,' + pos.y + 'px)' :
+				'translate3d(' + pos.x + 'px,' + pos.y + 'px,0)') +
+			(scale ? ' scale(' + scale + ')' : '');
+    },
 
     //------------------------------------------------------------------------------
     _animateZoom: function (e) {
         var scale = this._map.getZoomScale(e.zoom);
-        var offset = this._map._latLngToNewLayerPoint(this._map.getBounds().getNorthWest(), e.zoom, e.center);
+        // -- different calc of offset in leaflet 1.0.0 and 0.0.7 thanks for 1.0.0-rc2 calc @jduggan1 
+        var offset = L.Layer ? this._map._latLngToNewLayerPoint(this._map.getBounds().getNorthWest(), e.zoom, e.center) :
+                               this._map._getCenterOffset(e.center)._multiplyBy(-scale).subtract(this._map._getMapPanePos());
 
         L.DomUtil.setTransform(this._canvas, offset, scale);
+
+
     }
 });
 
