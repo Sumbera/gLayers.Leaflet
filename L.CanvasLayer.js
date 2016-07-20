@@ -6,7 +6,7 @@
   
 */
 
-L.CanvasLayer = L.Class.extend({
+L.CanvasLayer = L.Layer.extend({
     // -- initialized is called on prototype 
     initialize: function (options) {
         this._map    = null;
@@ -51,8 +51,6 @@ L.CanvasLayer = L.Class.extend({
 
         return events;
     },
-    //-- Leaflet 1.0-rc compatibility  from L.Layer , extension  to get it worked on lf 1.0 rc, this is not called on <1.0 versions 
-    _layerAdd: function (e) { this.onAdd(e.target); },
     //-------------------------------------------------------------
     onAdd: function (map) {
         this._map = map;
@@ -128,18 +126,13 @@ L.CanvasLayer = L.Class.extend({
 
     //------------------------------------------------------------------------------
     _animateZoom: function (e) {
-        var scale = this._map.getZoomScale(e.zoom),
-            offset = this._map._getCenterOffset(e.center)._multiplyBy(-scale).subtract(this._map._getMapPanePos());
+        var scale = this._map.getZoomScale(e.zoom);
+        var offset = this._map._latLngToNewLayerPoint(this._map.getBounds().getNorthWest(), e.zoom, e.center);
 
-        this._canvas.style[L.DomUtil.TRANSFORM] = (L.Browser.ie3d ? 'translate(' + offset.x + 'px,' + offset.y + 'px)' :
-                                                                 'translate3d(' + offset.x + 'px,' + offset.y + 'px,0)') +
-                                                                 (scale ? ' scale(' + scale + ')' : '');
-
+        L.DomUtil.setTransform(this._canvas, offset, scale);
     }
 });
 
 L.canvasLayer = function () {
     return new L.CanvasLayer();
 };
-
-
