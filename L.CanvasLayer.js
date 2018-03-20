@@ -93,6 +93,9 @@ L.CanvasLayer = (L.Layer ? L.Layer : L.Class).extend({
         var del = this._delegate || this;
         del.onLayerWillUnmount && del.onLayerWillUnmount(); // -- callback
    
+        if (this._frame) {
+            L.Util.cancelAnimFrame(this._frame);
+        }
 
         map.getPanes().overlayPane.removeChild(this._canvas);
  
