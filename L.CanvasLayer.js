@@ -1,9 +1,11 @@
 
 /*
-  Generic  Canvas Layer for leaflet 0.7 and 1.0-rc, 
-  copyright Stanislav Sumbera,  2016 , sumbera.com , license MIT
+  Generic  Canvas Layer for leaflet 0.7 and 1.0-rc, 1.2, 1.3
+  copyright Stanislav Sumbera,  2016-2018, sumbera.com , license MIT
   originally created and motivated by L.CanvasOverlay  available here: https://gist.github.com/Sumbera/11114288  
   
+  also thanks to contributors: heyyeyheman,andern,nikiv3, anyoneelse ?
+  enjoy !
 */
 
 // -- L.DomUtil.setTransform from leaflet 1.0.0 to work on 0.0.7
