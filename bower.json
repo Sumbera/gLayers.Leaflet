@@ -11,7 +11,7 @@
 	"authors": [
 		"Stanislav Sumbera"
 	],
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"license": "MIT",
 	"dependencies": {
 		"leaflet": ">= 1.0.0-rc.2"
