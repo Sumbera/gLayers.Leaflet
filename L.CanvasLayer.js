@@ -49,9 +49,12 @@ L.CanvasLayer = (L.Layer ? L.Layer : L.Class).extend({
         this._canvas.height = resizeEvent.newSize.y;
     },
     //-------------------------------------------------------------
-    _onLayerDidMove: function () {
+    _updatePosition: function () {
         var topLeft = this._map.containerPointToLayerPoint([0, 0]);
-        L.DomUtil.setPosition(this._canvas, topLeft);
+        L.DomUtil.setPosition(this._canvas, topLeft);        
+    },
+    _onLayerDidMove: function () {
+        this._updatePosition()
         this.drawLayer();
     },
     //-------------------------------------------------------------
@@ -86,7 +89,8 @@ L.CanvasLayer = (L.Layer ? L.Layer : L.Class).extend({
         map.on(this.getEvents(),this);
         
         var del = this._delegate || this;
-        del.onLayerDidMount && del.onLayerDidMount(); // -- callback
+        del.onLayerDidMount && del.onLayerDidMount(); // -- callback\
+        this._updatePosition();
         this.needRedraw();
     },
     
